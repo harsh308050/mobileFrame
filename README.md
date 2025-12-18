@@ -91,3 +91,9 @@ PASTE BELOW PROMPT FOR THE APP TO BE CREATED FROM FLUTTER APP TO FLUTTER WEB TO 
 Require zero React rewrite
 
 Implement this cleanly and professionally.
+
+
+
+LIVE PROJECT LINKS:
+1. LETSCHAT: https://letschatharsh.netlify.app/
+2. FITNESSAPP UI: https://fitnessappharsh.netlify.app/
