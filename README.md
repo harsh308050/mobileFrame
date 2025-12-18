@@ -1,283 +1,93 @@
-📱 Interactive Portfolio with Real Mobile Apps (Flutter Web + React)
+Modify my existing Flutter mobile application so that it runs on Flutter Web but behaves and looks exactly like a mobile app, suitable for embedding inside a portfolio using an iframe.
 
-This portfolio showcases real, running mobile applications inside realistic device frames.
-Instead of screenshots, users interact with actual apps embedded using iframes — creating the feel of a real mobile device with installed apps.
+Requirements
 
-🚀 What This Portfolio Does
+Mobile-Only Layout
 
-Converts Flutter mobile apps to Flutter Web
+Force the app to render in fixed mobile dimensions (iPhone-like).
 
-Deploys Flutter Web apps to Netlify
+App should NOT stretch on large screens.
 
-Embeds them inside a React portfolio
+Center the app on desktop browsers.
 
-Displays apps inside realistic mobile device frames
+Recommended size:
 
-Allows users to:
+Width: 390px
 
-Open apps from a device home screen
+Height: 844px
 
-Interact with real app flows
+Preserve Existing App
 
-Navigate back like a real device
+Do NOT rewrite screens.
 
-This creates a product-level demo experience, not a static portfolio.
+Do NOT change navigation logic.
 
-🧠 High-Level Architecture
-Flutter Mobile App
-        ↓
-Flutter Web Build
-        ↓
-Deploy to Netlify
-        ↓
-Public App URL
-        ↓
-React Portfolio
-        ↓
-Mobile Device Frame + iframe
+Keep all existing routes, Bloc, providers, and services intact.
 
-🛠 Tech Stack
-Mobile Apps
+Mobile-App Look & Feel
 
-Flutter (Dart)
+Disable web scrollbars.
 
-Flutter Web
+Prevent zooming (Ctrl + scroll).
 
-Portfolio
+No right-click context menu.
 
-React (Vite)
+No desktop-style resizing behavior.
 
-CSS (no UI libraries)
+Safe Area & Gestures
 
-iframe embedding
+Respect SafeArea.
 
-Hosting
+Keep mobile gestures (back, swipe, bottom navigation).
 
-Netlify (Flutter Web)
+Web Compatibility
 
-Vercel / Netlify (React Portfolio)
+Ensure compatibility with Flutter Web.
 
-📂 Repository Structure (Portfolio)
-src/
- ├── components/
- │    ├── MobileFrame.jsx
- │    ├── LaptopFrame.jsx
- │    └── DeviceFrame.css
- ├── pages/
- │    └── Projects.jsx
- ├── App.jsx
- ├── main.jsx
- └── index.css
+If platform checks are needed, use kIsWeb.
 
-🔄 Step 1: Convert Flutter Mobile App to Flutter Web
-Enable Web Support
-flutter config --enable-web
+Single Entry Point Change
 
+Apply all layout restrictions at the root level (main.dart or App widget).
 
-Verify:
+Do not modify individual screens.
 
-flutter devices
+Expected Output
 
+A root widget that:
 
-You should see:
+Wraps the app in a Center
 
-Chrome
+Uses a fixed SizedBox for mobile dimensions
 
-Web Server
+Works identically on Android, iOS, and Web
 
-Lock App to Mobile Size (Important)
+Example structure:
 
-In your Flutter root widget:
+Center
+  └── SizedBox (390 × 844)
+        └── MaterialApp
+              └── Existing App
 
-return Center(
-  child: SizedBox(
-    width: 390,
-    height: 844,
-    child: MyApp(),
-  ),
-);
+Extra (Nice to Have)
 
+Optional mobile frame background color outside the app
 
-This ensures the app behaves like a mobile app, not a website.
+Clean separation of web-specific logic
 
-🎨 Step 2: Fix Flutter Web Background (CRITICAL)
+Goal
 
-Flutter Web uses an HTML canvas.
-To avoid white borders in rounded device frames:
+The final Flutter Web build should:
 
-Edit:
-web/index.html
+Look like a real mobile app
 
+Feel like a native app
 
-Change <body> to:
+Be suitable for embedding inside an iframe
 
-<body style="margin:0; background-color: transparent;">
+PASTE BELOW PROMPT FOR THE APP TO BE CREATED FROM FLUTTER APP TO FLUTTER WEB TO USE FOR MOBILE SIZE
 
 
-This prevents white/grey halos inside the device frame.
+Require zero React rewrite
 
-🏗 Step 3: Build Flutter Web
-flutter clean
-flutter build web
-
-
-This generates:
-
-build/web/
-
-
-⚠️ Only this folder is deployed.
-
-🌍 Step 4: Deploy Flutter Web to Netlify
-Option A: Drag & Drop (Fastest)
-
-Go to: https://app.netlify.com/drop
-
-Drag build/web
-
-Wait for deployment
-
-You’ll get a URL like:
-
-https://fitnessappharsh.netlify.app
-
-Fix Routing (Important)
-
-Inside build/web/, create a file:
-
-_redirects
-
-
-Content:
-
-/*    /index.html   200
-
-
-Prevents white screen on refresh.
-
-⚛️ Step 5: Embed Flutter App in React Portfolio
-Use iframe (Mobile App)
-<iframe
-  src="https://fitnessappharsh.netlify.app"
-  className="mobile-iframe"
-/>
-
-
-The iframe loads the real Flutter app
-
-React provides the device frame
-
-Flutter handles scrolling & logic
-
-📱 Step 6: Mobile Device Frame (React)
-
-Key CSS rules:
-
-.mobile-device {
-  aspect-ratio: 390 / 844;
-  overflow: hidden;
-}
-
-.mobile-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: #000;
-}
-
-
-This ensures:
-
-No overflow
-
-No white borders
-
-Perfect rounded corners
-
-🧩 Step 7: Real Device Experience (Launcher Concept)
-
-Instead of directly opening apps:
-
-Show a mobile home screen
-
-Display multiple app icons
-
-Clicking an icon:
-
-Opens the app inside the same device
-
-A Home/Back button returns to launcher
-
-This feels like:
-
-“A real phone with installed apps”
-
-🧠 State Management (React)
-const [activeApp, setActiveApp] = useState(null);
-
-
-null → Home screen
-
-"fitness" → Fitness App iframe
-
-"housing" → Another app
-
-No iframe reload hacks.
-No resizing.
-Smooth transitions.
-
-❌ What This Approach Avoids
-
-❌ No screenshots
-
-❌ No fake demos
-
-❌ No rebuilding Flutter apps in React
-
-❌ No performance-heavy emulation
-
-✅ Benefits
-
-Real app experience
-
-Recruiter-friendly
-
-High visual impact
-
-Clean architecture
-
-Scalable for many apps
-
-🎯 Ideal For
-
-Flutter Developers
-
-Mobile App Developers
-
-Internship / Placement portfolios
-
-Product-focused roles
-
-📌 Key Takeaway
-
-This portfolio does not show apps.
-It lets users use them.
-
-That difference matters.
-
-🚀 Future Enhancements
-
-Fullscreen app mode
-
-App open animations
-
-Tablet & laptop device views
-
-Lazy loading iframes
-
-OS-style transitions
-
-🧑‍💻 Author
-
-Harsh
-Flutter & Application Developer
+Implement this cleanly and professionally.
