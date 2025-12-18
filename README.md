@@ -97,3 +97,4 @@ Implement this cleanly and professionally.
 LIVE PROJECT LINKS:
 1. LETSCHAT: https://letschatharsh.netlify.app/
 2. FITNESSAPP UI: https://fitnessappharsh.netlify.app/
+3. HOUSINGHUB APP: https://housinghubharsh.netlify.app/
